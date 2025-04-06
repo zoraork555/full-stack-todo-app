@@ -11,6 +11,7 @@ The front-end is run using Node and uses React as the main library.
 
 ## Minor Tools
 - Vite
+- Axios  
 
 ## Running
 - Navigate to the server folder and run 'npm start'
