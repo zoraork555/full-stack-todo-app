@@ -20,7 +20,7 @@ let todos = [
     {id: 4, text: "Walk cat", completed: false}
 ];
 
-let id = 3;
+let id = 4;
 
 app.get("/todos", (req, res) => {
     res.json(todos);
