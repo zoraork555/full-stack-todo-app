@@ -22,8 +22,14 @@ let todos = [
 
 let id = 3;
 
-app.get("/", (req, res) => {
+app.get("/todos", (req, res) => {
     res.json(todos);
+});
+
+app.post('/todos', (req, res)=>{
+    const todo = { id: ++id, text: req.body.text, completed: false };
+    todos.push(todo);
+    res.json(todo);
 });
 
 // app.get("/contact", (req, res) => {
