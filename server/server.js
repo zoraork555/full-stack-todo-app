@@ -13,24 +13,23 @@ app.use(express.urlencoded({extended: true}));
 
 // initialize with dummy todos
 
-let todos = [
-    {id: 1, text: "Buy groceries", completed: false},
-    {id: 2, text: "Laundry", completed: true},
-    {id: 3, text: "Work out", completed: false},
-    {id: 4, text: "Walk cat", completed: false}
-];
-
-let id = 4;
+let todos = [];
+let id = 0;
 
 app.get("/todos", (req, res) => {
     res.json(todos);
 });
 
-app.post('/todos', (req, res)=>{
+app.post("/todos", (req, res)=>{
     const todo = { id: ++id, text: req.body.text, completed: false };
     todos.push(todo);
     res.json(todo);
 });
+
+app.delete("/todos/:id", (req, res) => {
+    todos = todos.filter((t) => t.id != req.params.id);
+    res.json({message: "Todo Deleted"});
+})
 
 // app.get("/contact", (req, res) => {
 //     res.send("Goodbye WORLD");

@@ -28,6 +28,11 @@ function App() {
     console.log(text);
   };
 
+  const delTodo = async (id) => {
+    await axios.delete(`${API_URL}/${id}`);
+    setTodos(todos.filter((t)=> t.id !== id));
+  };
+
   return (
     <>
       <input 
@@ -46,7 +51,7 @@ function App() {
             >
                 {todo.text}
             </span>
-            <button style={{marginLeft: "10px" }}>Delete</button>
+            <button onClick={()=> delTodo(todo.id)} style={{ marginLeft: "10px" }}>Delete</button>
           </li>
         ))}
       </ul>
