@@ -26,10 +26,21 @@ app.post("/todos", (req, res)=>{
     res.json(todo);
 });
 
+app.put("/todos/:id", (req, res) => {
+    const todo = todos.find((t) => t.id == req.params.id);
+    if (todo) {
+        todo.completed = 
+            req.body.completed !== undefined ? req.body.completed : todo.completed;
+        res.json(todo);
+    } else {
+        res.status(404).json({message: 'todo not found'});
+    }
+});
+
 app.delete("/todos/:id", (req, res) => {
     todos = todos.filter((t) => t.id != req.params.id);
     res.json({message: "Todo Deleted"});
-})
+});
 
 // app.get("/contact", (req, res) => {
 //     res.send("Goodbye WORLD");
@@ -37,4 +48,4 @@ app.delete("/todos/:id", (req, res) => {
 
 app.listen(PORT, () =>{
     console.log(`working on port ${PORT}`);
-})
+});

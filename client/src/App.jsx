@@ -33,6 +33,17 @@ function App() {
     setTodos(todos.filter((t)=> t.id !== id));
   };
 
+  const toggleComplete = async (id) => {
+    const todo = todos.find((t) => t.id == id);
+    const response = await axios.put(`${API_URL}/${id}`, {
+      completed: !todo.completed,
+    });
+    
+    setTodos(
+      todos.map((t) => (t.id === id ? {...t, completed: response.data.completed} : t))
+    );
+  };
+
   return (
     <>
       <input 
@@ -43,9 +54,10 @@ function App() {
       />
       <button onClick={addTodo} style={{ marginLeft: "10px" }}>Add</button>
       <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-        {todos.map((todo)=>(
+        {todos.map((todo) => (
           <li key={todo.id} style={{ marginTop: "10px" }}>
             <span
+              onClick={() => toggleComplete(todo.id)}
               style={{ textDecoration: todo.completed ? 'line-through' : 'none', 
               cursor: "pointer" }}
             >
